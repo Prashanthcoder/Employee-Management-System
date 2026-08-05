@@ -1,5 +1,7 @@
 package com.emsminiproject.Employee.management.system.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +30,26 @@ public class User {
 	private String password;
 	
 	private String role;
-	private Boolean verified;
+	private boolean verified;
+	
+	private String otp;
+	private LocalDateTime otpExpirationTime;
+	
+	public String getOtp() {
+		return otp;
+	}
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+	public LocalDateTime getOtpExpirationTime() {
+		return otpExpirationTime;
+	}
+	public void setOtpExpirationTime(LocalDateTime otpExpirationTime) {
+		this.otpExpirationTime = otpExpirationTime;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public int getId() {
 		return id;
 	}
