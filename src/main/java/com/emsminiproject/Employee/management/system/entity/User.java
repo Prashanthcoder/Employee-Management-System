@@ -86,6 +86,4 @@ public class User {
 	public void setVerified(boolean verified) {
 		this.verified = verified;
 	}
-	
-	
 }
