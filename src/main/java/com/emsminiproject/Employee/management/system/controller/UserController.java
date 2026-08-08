@@ -25,7 +25,7 @@ public class UserController {
 	public String register(@RequestBody RegisterRequestDTO registerRequest) {
 		return userService.register(registerRequest);
 	}
-	
+
 	@PostMapping("/verify-otp")
 	public String verifyOtp(@RequestBody VerifyOtpRequest verifyOtpRequest) {
 		return otpService.verifyOtp(verifyOtpRequest);

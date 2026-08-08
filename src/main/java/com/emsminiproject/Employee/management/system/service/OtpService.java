@@ -40,7 +40,6 @@ public class OtpService {
 			 userRepository.save(user);
 			 return "otp verified successfully";
 		 }
-		 
 		 return "email is not present";
 	}
 }
