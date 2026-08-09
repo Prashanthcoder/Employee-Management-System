@@ -8,6 +8,14 @@ The system supports core employee management functionalities such as registratio
 
 ---
 
+Notes
+
+- Just added the Response Entity that is proper HTTP responses to the client side.
+- Added the otp service via emails.
+- Added the Verfication of otp classes with logics
+- Added the crud operations on the employees after creating the Employee entity class. At the EmployeeRepository
+- Added the Response Entity only a test, can find it on responseEntity/feature-test-4 git branch
+
 Features
 
 - Role-Based Authentication & Authorization
