@@ -3,6 +3,7 @@ package com.emsminiproject.Employee.management.system.service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.emsminiproject.Employee.management.system.dto.RegisterRequestDTO;
@@ -14,10 +15,12 @@ import com.emsminiproject.Employee.management.system.util.OtpGenerator;
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
 	private final EmailService emailService;
-	public UserService(UserRepository userRepository, EmailService emailService) {
+	public UserService(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.emailService = emailService;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	public String register(RegisterRequestDTO registerRequest) {
@@ -29,7 +32,7 @@ public class UserService {
 		User user = new User();
 		user.setName(registerRequest.getName());
 		user.setEmail(registerRequest.getEmail());
-		user.setPassword(registerRequest.getPassword());
+		user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 		user.setRole("USER_ROLE");
 		user.setVerified(false);
 		String otp = OtpGenerator.generateOtp();
