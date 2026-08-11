@@ -1,7 +1,11 @@
 package com.emsminiproject.Employee.management.system.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,13 +28,16 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/insert")
-	public String createEmployee(@RequestBody Employee employee) {
-		return employeeService.createEmployee(employee);
+	public ResponseEntity<Map<String, String>> createEmployee(@RequestBody Employee employee) {
+		String result = employeeService.createEmployee(employee);
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(Map.of("message", result));
 	}
 	
 	@GetMapping("/{email}")
-	public Object fetchEmployeesById(@PathVariable String email) {
-		return employeeService.fetchEmployeeById(email);
+	public ResponseEntity<Map<String, Object>> fetchEmployeesById(@PathVariable String email) {
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(Map.of("employee", employeeService.fetchEmployeeById(email)));
 	}
 	
 	@GetMapping
