@@ -1,5 +1,9 @@
 package com.emsminiproject.Employee.management.system.controller;
 
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +26,29 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public String register(@RequestBody RegisterRequestDTO registerRequest) {
-		return userService.register(registerRequest);
+	public ResponseEntity<Map<String, String>> register(@RequestBody RegisterRequestDTO registerRequest) {
+		String result =  userService.register(registerRequest);
+		if(result.contains("already registered")) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(Map.of("err", result));
+		}
+		
+		return ResponseEntity
+				.status(HttpStatus.CREATED)
+				.body(Map.of("message", result));
 	}
 
 	@PostMapping("/verify-otp")
-	public String verifyOtp(@RequestBody VerifyOtpRequest verifyOtpRequest) {
-		return otpService.verifyOtp(verifyOtpRequest);
+	public ResponseEntity<Map<String, String>> verifyOtp(@RequestBody VerifyOtpRequest verifyOtpRequest) {
+		String result = otpService.verifyOtp(verifyOtpRequest);
+		if(result.contains("already verified") || result.contains("expired") || result.contains("invalid otp")) {
+			return ResponseEntity
+					.status(HttpStatus.BAD_REQUEST)
+					.body(Map.of("error", result));
+		}
+		
+		return ResponseEntity
+				.ok(Map.of("message", result));
+		
 	}
 }
