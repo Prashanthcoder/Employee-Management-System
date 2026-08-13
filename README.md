@@ -15,7 +15,8 @@ Notes
 - Added the Verfication of otp classes with logics
 - Added the crud operations on the employees after creating the Employee entity class. At the EmployeeRepository
 - Added the Response Entity only a test, can find it on responseEntity/feature-test-4 git branch
-
+- Added the Excpetion handler for each methods separately.
+- Added the checked or custom exception such as UserNotFoundException, InvalidOtpException, OtpExpiredException etc.
 Features
 
 - Role-Based Authentication & Authorization
