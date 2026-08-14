@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.emsminiproject.Employee.management.system.dto.VerifyOtpRequest;
 import com.emsminiproject.Employee.management.system.entity.User;
+import com.emsminiproject.Employee.management.system.exception.InvalidOtpException;
+import com.emsminiproject.Employee.management.system.exception.OtpExpiredException;
+import com.emsminiproject.Employee.management.system.exception.UserNotFoundException;
 import com.emsminiproject.Employee.management.system.repository.UserRepository;
 
 @Service
@@ -27,10 +30,10 @@ public class OtpService {
 			 }
 			 
 			 if(user.getOtp()==null || !user.getOtp().equals(verifyOtpRequest.getOtp())) {
-				 return "invalid otp";
+				 throw new InvalidOtpException("invalid otp");
 			 }
 			 if(user.getOtpExpirationTime() == null || LocalDateTime.now().isAfter(user.getOtpExpirationTime())) {
-				 return "OTP expired";
+				 throw new OtpExpiredException("otp expired");
 			 }
 			 
 			 
@@ -40,6 +43,6 @@ public class OtpService {
 			 userRepository.save(user);
 			 return "otp verified successfully";
 		 }
-		 return "email is not present";
+		throw new UserNotFoundException("User not found");
 	}
 }
