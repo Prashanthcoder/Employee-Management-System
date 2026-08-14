@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.emsminiproject.Employee.management.system.entity.Employee;
+import com.emsminiproject.Employee.management.system.exception.EmailIdNotFoundException;
 import com.emsminiproject.Employee.management.system.repository.EmployeeRepository;
 
 @Service
@@ -29,7 +30,8 @@ public class EmployeeService {
 			return employee;
 		}
 		
-		return "Email Id "+email+" not found";
+//		return "Email Id "+email+" not found";
+		throw new EmailIdNotFoundException(email+" not found");
 	}
 	
 	public List<Employee> fetchEmployees(){
@@ -48,13 +50,14 @@ public class EmployeeService {
 			return "updated employee data";
 		}
 		
-		return "Email Id "+email+" not found";
+//		return "Email Id "+email+" not found";
+		throw new EmailIdNotFoundException(email+" not found");
 	}
 	
 	public String deleteEmployeeById(String email) {
 		Optional<Employee>  optional = employeeRepository.findByEmail(email);
 		if(optional.isEmpty()) {
-			return "email id "+email+" not found";
+			throw new EmailIdNotFoundException(email+" not found");
 		}
 		
 		Employee dataToDelete = optional.get();

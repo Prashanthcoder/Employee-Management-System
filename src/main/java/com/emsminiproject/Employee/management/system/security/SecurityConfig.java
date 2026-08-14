@@ -22,9 +22,10 @@ public class SecurityConfig {
 		http
 		.csrf(csrf-> csrf.disable())
 		.authorizeHttpRequests(auth-> auth.
-				requestMatchers("/api/users/register", "api/users/verify-otp").permitAll()
-				.requestMatchers(HttpMethod.GET, "api/employees/**").hasAnyRole("USER", "ADMIN")
-				.requestMatchers("api/employees/**").hasRole("ADMIN")
+				  requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+				.requestMatchers("/api/users/register", "/api/users/verify-otp").permitAll()
+				.requestMatchers(HttpMethod.GET, "/api/employees/**").hasAnyRole("USER", "ADMIN")
+				.requestMatchers("/api/employees/**").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				)
 		.httpBasic(Customizer.withDefaults());
