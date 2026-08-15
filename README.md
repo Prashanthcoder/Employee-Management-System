@@ -29,6 +29,8 @@ Features
   - Update Employee Information
   - Delete Employee Records
 - Input Validation and Exception Handling
+- yet to add some validations and some clear things.
+- wanna add some tests and exception handlers.
 
 ---
 
