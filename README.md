@@ -17,6 +17,7 @@ Notes
 - Added the Response Entity only a test, can find it on responseEntity/feature-test-4 git branch
 - Added the Excpetion handler for each methods separately.
 - Added the checked or custom exception such as UserNotFoundException, InvalidOtpException, OtpExpiredException etc.
+- Added the validation for the employee fields, made sure the multiple error message validation works using FieldError class.
 Features
 
 - Role-Based Authentication & Authorization
@@ -71,6 +72,11 @@ Authentication Flow
 5. System validates role and grants access accordingly
 
 ---
+
+Architecure image: 
+
+<img width="5300" height="6037" alt="diagram" src="https://github.com/user-attachments/assets/f58cad4f-c4df-4d66-b14a-b47346b53af8" />
+
 
 API Endpoints
 
