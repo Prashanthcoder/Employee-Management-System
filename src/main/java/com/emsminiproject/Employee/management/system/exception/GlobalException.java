@@ -28,6 +28,8 @@ public class GlobalException {
 		}
 		return new ResponseEntity(map, HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(InvalidOtpException.class)
 	public ResponseEntity<String> invalidOtpException(InvalidOtpException invalidOtpException){
 		return new ResponseEntity(invalidOtpException.getMessage(), HttpStatus.BAD_REQUEST);
 	}
