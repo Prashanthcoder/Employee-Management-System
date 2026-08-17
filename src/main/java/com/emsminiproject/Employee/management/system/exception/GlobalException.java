@@ -17,6 +17,9 @@ public class GlobalException {
 		return new ResponseEntity(invalidOtpException.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
+	public ResponseEntity<String> otpAlreadyVerifiedException(OtpAlreadyVerifiedException exception){
+		return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+	}
 	public ResponseEntity<String> otpExpiredException(OtpExpiredException otpExpired){
 		return new ResponseEntity(otpExpired.getMessage(), HttpStatus.BAD_REQUEST);
 	}

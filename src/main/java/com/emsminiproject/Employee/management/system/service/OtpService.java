@@ -26,7 +26,7 @@ public class OtpService {
 		 if(optionalUser.isPresent()) {
 			 User user = optionalUser.get();
 			 if(user.isVerified()) {
-				 return "otp already verified";
+				 throw new OtpAlreadyVerifiedException("otp already verified");
 			 }
 			 
 			 if(user.getOtp()==null || !user.getOtp().equals(verifyOtpRequest.getOtp())) {
@@ -35,8 +35,6 @@ public class OtpService {
 			 if(user.getOtpExpirationTime() == null || LocalDateTime.now().isAfter(user.getOtpExpirationTime())) {
 				 throw new OtpExpiredException("otp expired");
 			 }
-			 
-			 
 			 user.setVerified(true);
 			 user.setOtp(null);
 			 user.setOtpExpirationTime(null);
