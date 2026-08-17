@@ -11,13 +11,14 @@ import jakarta.validation.constraints.Positive;
 @Table(name="emp")
 public class Employee {
 	@Id
-	@Email
+	@Email(message="Enter proper email id")
+	@NotBlank(message="Email must not be empty, null, space")
 	private String email;
-	@NotBlank
+	@NotBlank(message="Name must not be empty, null, space")
 	private String name;
-	@Positive
+	@Positive(message="Salary must more then or equal to 0")
 	private double salary;
-	@NotBlank
+	@NotBlank(message="Department must not be empty, null or space")
 	private String department;
 	public String getEmail() {
 		return email;
