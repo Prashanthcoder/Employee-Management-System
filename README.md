@@ -1,4 +1,4 @@
-Employee Management System — Backend
+# Employee Management System — Backend
 
 Overview
 
@@ -18,6 +18,9 @@ Notes
 - Added the Excpetion handler for each methods separately.
 - Added the checked or custom exception such as UserNotFoundException, InvalidOtpException, OtpExpiredException etc.
 - Added the validation for the employee fields, made sure the multiple error message validation works using FieldError class.
+
+---
+  
 Features
 
 - Role-Based Authentication & Authorization
@@ -35,7 +38,7 @@ Features
 
 ---
 
-Tech Stack
+## Tech Stack
 
 - Java 17
 - Spring Boot
@@ -73,7 +76,7 @@ Authentication Flow
 
 ---
 
-Architecure image: 
+## Architecure: 
 
 <img width="5300" height="6037" alt="diagram" src="https://github.com/user-attachments/assets/f58cad4f-c4df-4d66-b14a-b47346b53af8" />
 
@@ -112,40 +115,72 @@ Employee Management
 
 ---
 
-Project Structure (Suggested)
+##  Project Structure
 
+```text
 employee-management/
-│── controller/
-│   ├── AuthController.java
-│   ├── EmployeeController.java
 │
-│── service/
-│   ├── AuthService.java
-│   ├── EmployeeService.java
-│   ├── OTPService.java
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/emsminiproject/Employee/management/system/
+│   │   │       │
+│   │   │       ├── EmployeeManagementSystemApplication.java
+│   │   │       │
+│   │   │       ├── configuration/
+│   │   │       │   └── Myconfig.java
+│   │   │       │
+│   │   │       ├── controller/
+│   │   │       │   ├── AuthController.java
+│   │   │       │   ├── EmployeeController.java
+│   │   │       │   └── UserController.java
+│   │   │       │
+│   │   │       ├── dto/
+│   │   │       │   ├── AuthRequest.java
+│   │   │       │   ├── AuthResponse.java
+│   │   │       │   ├── RegisterRequestDTO.java
+│   │   │       │   └── VerifyOtpRequest.java
+│   │   │       │
+│   │   │       ├── entity/
+│   │   │       │   ├── Employee.java
+│   │   │       │   └── User.java
+│   │   │       │
+│   │   │       ├── exception/
+│   │   │       │   ├── EmailIdNotFoundException.java
+│   │   │       │   ├── GlobalException.java
+│   │   │       │   ├── InvalidOtpException.java
+│   │   │       │   ├── OtpAlreadyVerifiedException.java
+│   │   │       │   ├── OtpExpiredException.java
+│   │   │       │   └── UserNotFoundException.java
+│   │   │       │
+│   │   │       ├── repository/
+│   │   │       │   ├── EmployeeRepository.java
+│   │   │       │   └── UserRepository.java
+│   │   │       │
+│   │   │       ├── security/
+│   │   │       │   ├── SecurityConfig.java
+│   │   │       │   └── JwtFilter.java
+│   │   │       │
+│   │   │       ├── service/
+│   │   │       │   ├── EmailService.java
+│   │   │       │   ├── EmployeeService.java
+│   │   │       │   ├── OtpService.java
+│   │   │       │   └── UserService.java
+│   │   │       │
+│   │   │       └── util/
+│   │   │           └── OtpGenerator.java
+│   │   │
+│   │   └── resources/
+│   │       ├── static/
+│   │       ├── templates/
+│   │       └── application.properties
+│   │
+│   └── test/
 │
-│── repository/
-│   ├── UserRepository.java
-│   ├── EmployeeRepository.java
-│
-│── model/
-│   ├── User.java
-│   ├── Employee.java
-│   ├── Role.java
-│
-│── security/
-│   ├── SecurityConfig.java
-│   ├── JwtFilter.java (optional)
-│
-│── dto/
-│   ├── AuthRequest.java
-│   ├── AuthResponse.java
-│
-│── exception/
-│   ├── GlobalExceptionHandler.java
-│
-│── EmployeeManagementApplication.java
-
+├── .gitignore
+├── pom.xml
+└── README.md
+```
 ---
 
 Email OTP Configuration
