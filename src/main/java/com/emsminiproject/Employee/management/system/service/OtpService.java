@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.emsminiproject.Employee.management.system.dto.VerifyOtpRequest;
 import com.emsminiproject.Employee.management.system.entity.User;
 import com.emsminiproject.Employee.management.system.exception.InvalidOtpException;
+import com.emsminiproject.Employee.management.system.exception.OtpAlreadyVerifiedException;
 import com.emsminiproject.Employee.management.system.exception.OtpExpiredException;
 import com.emsminiproject.Employee.management.system.exception.UserNotFoundException;
 import com.emsminiproject.Employee.management.system.repository.UserRepository;
