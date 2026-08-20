@@ -15,6 +15,8 @@ import com.emsminiproject.Employee.management.system.dto.VerifyOtpRequest;
 import com.emsminiproject.Employee.management.system.service.OtpService;
 import com.emsminiproject.Employee.management.system.service.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -27,18 +29,18 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public String register(@RequestBody RegisterRequestDTO registerRequest) {
+	public String register(@Valid @RequestBody RegisterRequestDTO registerRequest) {
 		return userService.register(registerRequest);
 	}
 
 	@PostMapping("/verify-otp")
-	public String verifyOtp(@RequestBody VerifyOtpRequest verifyOtpRequest) {
+	public String verifyOtp(@Valid @RequestBody VerifyOtpRequest verifyOtpRequest) {
 		return otpService.verifyOtp(verifyOtpRequest);
 		
 	}
 	
 	@PostMapping("/resend-otp")
-	public String resendOtp(@RequestBody ResendOtpRequest resend) {
+	public String resendOtp(@Valid @RequestBody ResendOtpRequest resend) {
 		return userService.resendOtp(resend);
 	}
 }

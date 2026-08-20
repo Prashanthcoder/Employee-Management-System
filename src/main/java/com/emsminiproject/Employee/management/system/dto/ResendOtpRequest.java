@@ -1,6 +1,9 @@
 package com.emsminiproject.Employee.management.system.dto;
 
+import jakarta.validation.constraints.Email;
+
 public class ResendOtpRequest {
+	@Email(message="enter proper email id")
 	private String email;
 
 	public String getEmail() {
