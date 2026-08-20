@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.emsminiproject.Employee.management.system.dto.RegisterRequestDTO;
+import com.emsminiproject.Employee.management.system.dto.ResendOtpRequest;
 import com.emsminiproject.Employee.management.system.dto.VerifyOtpRequest;
 import com.emsminiproject.Employee.management.system.service.OtpService;
 import com.emsminiproject.Employee.management.system.service.UserService;
@@ -34,5 +35,10 @@ public class UserController {
 	public String verifyOtp(@RequestBody VerifyOtpRequest verifyOtpRequest) {
 		return otpService.verifyOtp(verifyOtpRequest);
 		
+	}
+	
+	@PostMapping("/resend-otp")
+	public String resendOtp(@RequestBody ResendOtpRequest resend) {
+		return userService.resendOtp(resend);
 	}
 }

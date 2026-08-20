@@ -34,8 +34,9 @@ public class OtpService {
 				 throw new InvalidOtpException("invalid otp");
 			 }
 			 if(user.getOtpExpirationTime() == null || LocalDateTime.now().isAfter(user.getOtpExpirationTime())) {
-				 throw new OtpExpiredException("otp expired");
+				 throw new OtpExpiredException("otp expired, try resending");
 			 }
+			 
 			 user.setVerified(true);
 			 user.setOtp(null);
 			 user.setOtpExpirationTime(null);
@@ -44,4 +45,7 @@ public class OtpService {
 		 }
 		throw new UserNotFoundException("User not found");
 	}
+		
+	
 }
+

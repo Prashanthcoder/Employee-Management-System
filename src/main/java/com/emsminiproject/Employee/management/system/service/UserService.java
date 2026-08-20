@@ -7,7 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.emsminiproject.Employee.management.system.dto.RegisterRequestDTO;
+import com.emsminiproject.Employee.management.system.dto.ResendOtpRequest;
 import com.emsminiproject.Employee.management.system.entity.User;
+import com.emsminiproject.Employee.management.system.exception.OtpAlreadyVerifiedException;
+import com.emsminiproject.Employee.management.system.exception.UserNotFoundException;
 import com.emsminiproject.Employee.management.system.repository.UserRepository;
 import com.emsminiproject.Employee.management.system.util.OtpGenerator;
 
@@ -42,5 +45,24 @@ public class UserService {
 		
 		emailService.sendOtp(registerRequest.getEmail(), otp);
 		return "OTP sent to "+registerRequest.getEmail();
+	}
+	
+	public String resendOtp(ResendOtpRequest resendRequest) {
+		Optional<User> optionalUser = userRepository.findByEmail(resendRequest.getEmail());
+		if(optionalUser.isEmpty()) {
+			throw new UserNotFoundException("user not found with "+resendRequest.getEmail());
+		}
+
+		User user = optionalUser.get();
+		if(user.isVerified()) {
+			throw new OtpAlreadyVerifiedException("Otp already verified");
+		}
+			String otp = OtpGenerator.generateOtp();
+			user.setOtp(otp);
+			user.setOtpExpirationTime(LocalDateTime.now().plusMinutes(5));
+			userRepository.save(user);
+			emailService.sendOtp(resendRequest.getEmail(), otp);
+			return "OTP resent to "+resendRequest.getEmail();
+		
 	}
 }
