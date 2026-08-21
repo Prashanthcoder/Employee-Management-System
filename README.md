@@ -1,31 +1,34 @@
 # Employee Management System — Backend
 
-Overview
+## Overview
 
 The Employee Management System is a Spring Boot–based backend application that provides secure and efficient management of employee data. It implements role-based authentication and authorization to control access to system features and ensures that only authorized users can perform specific operations.
 
-The system supports core employee management functionalities such as registration, login, OTP-based email verification, and CRUD operations on employee records.
+The system supports core employee management functionalities such as registration, login, OTP-based email verification, OTP resend functionality, and CRUD operations on employee records.
 
 ---
 
-Notes
+## Notes
 
 - Just added the Response Entity that is proper HTTP responses to the client side.
-- Added the otp service via emails.
-- Added the Verfication of otp classes with logics
-- Added the crud operations on the employees after creating the Employee entity class. At the EmployeeRepository
-- Added the Response Entity only a test, can find it on responseEntity/feature-test-4 git branch
-- Added the Excpetion handler for each methods separately.
-- Added the checked or custom exception such as UserNotFoundException, InvalidOtpException, OtpExpiredException etc.
-- Added the validation for the employee fields, made sure the multiple error message validation works using FieldError class.
+- Added the OTP service via emails.
+- Added the verification of OTP classes with logics.
+- Added the CRUD operations on the employees after creating the Employee entity class at the EmployeeRepository.
+- Added the Response Entity only as a test, can find it on responseEntity/feature-test-4 git branch.
+- Added the exception handler for each method separately.
+- Added checked or custom exceptions such as UserNotFoundException, InvalidOtpException, OtpExpiredException etc.
+- Added validation for the employee fields and made sure multiple validation error messages work using the FieldError class.
+- Added the resend OTP functionality through the `/api/users/resend-otp` endpoint.
+- Added logic to generate and send a new OTP to the user's registered email when the user requests an OTP again.
 
 ---
-  
-Features
+
+## Features
 
 - Role-Based Authentication & Authorization
 - Employee Registration and Login
 - OTP Verification via Email
+- Resend OTP functionality
 - Secure Access Control
 - CRUD Operations for Employee Management
   - Create Employee
@@ -33,8 +36,8 @@ Features
   - Update Employee Information
   - Delete Employee Records
 - Input Validation and Exception Handling
-- yet to add some validations and some clear things.
-- wanna add some tests and exception handlers.
+- Yet to add some validations and some clear things.
+- Wanna add some tests and exception handlers.
 
 ---
 
@@ -48,74 +51,89 @@ Features
   - Spring Validation
 - MySQL (or any relational database)
 - Maven
-- Java Mail Sender (SMTP) for OTP
+- Java Mail Sender (SMTP)
 
 ---
 
-Roles
+## Roles
 
-- Admin
-  
-  - Full access to employee management
-  - Can create, update, delete, and view all employee records
+### Admin
 
-- Employee
-  
-  - Limited access
-  - Can view and update their own details
+- Full access to employee management
+- Can create, update, delete, and view all employee records
 
----
+### Employee
 
-Authentication Flow
-
-1. User registers with email and basic details
-2. System sends an OTP to the registered email
-3. User verifies OTP to activate the account
-4. User logs in with credentials
-5. System validates role and grants access accordingly
+- Limited access
+- Can view and update their own details
 
 ---
 
-## Architecure: 
+## Authentication Flow
+
+1. User registers with email and basic details.
+2. System sends an OTP to the registered email.
+3. User verifies OTP to activate the account.
+4. If required, the user can request a new OTP.
+5. System generates and sends a new OTP to the registered email.
+6. User logs in with credentials.
+7. System validates the role and grants access accordingly.
+
+---
+
+## Architecture
 
 <img width="5300" height="6037" alt="diagram" src="https://github.com/user-attachments/assets/f58cad4f-c4df-4d66-b14a-b47346b53af8" />
 
+---
 
-API Endpoints
+## API Endpoints
 
-Authentication
+### Authentication
 
-- POST "/auth/register"
-  Register a new user
+- `POST /auth/register`
 
-- POST "/auth/verify-otp"
-  Verify email using OTP
+  Register a new user.
 
-- POST "/auth/login"
-  Authenticate user and return access token/session
+- `POST /auth/verify-otp`
+
+  Verify the user's email using OTP.
+
+- `POST /auth/login`
+
+  Authenticate the user and return access token/session.
+
+### User Management
+
+- `POST /api/users/resend-otp`
+
+  Generate and send a new OTP to the user's registered email.
+
+### Employee Management
+
+- `GET /employees`
+
+  Get all employee details. Admin only.
+
+- `GET /employees/{id}`
+
+  Get employee details by ID.
+
+- `POST /employees`
+
+  Create a new employee. Admin only.
+
+- `PUT /employees/{id}`
+
+  Update employee details.
+
+- `DELETE /employees/{id}`
+
+  Delete an employee. Admin only.
 
 ---
 
-Employee Management
-
-- GET "/employees"
-  Get all employee details (Admin only)
-
-- GET "/employees/{id}"
-  Get employee details by ID
-
-- POST "/employees"
-  Create new employee (Admin only)
-
-- PUT "/employees/{id}"
-  Update employee details
-
-- DELETE "/employees/{id}"
-  Delete employee (Admin only)
-
----
-
-##  Project Structure
+## Project Structure
 
 ```text
 employee-management/
@@ -180,30 +198,39 @@ employee-management/
 ├── .gitignore
 ├── pom.xml
 └── README.md
+
+
 ```
----
 
-Email OTP Configuration
+## Email OTP Configuration
 
-- Uses SMTP (e.g., Gmail)
-- Sends a time-based OTP to user email
-- OTP expires after a defined duration
-- Required for account activation
-
----
-
-Error Handling
-
-- Centralized exception handling using "@ControllerAdvice"
-- Validation using "@Valid"
-- Proper HTTP status codes for all responses
+- Uses SMTP such as Gmail.
+- Sends a time-based OTP to the user's email.
+- OTP expires after a defined duration.
+- OTP verification is required for account activation.
+- Supports requesting a new OTP through the resend OTP endpoint.
+- A new OTP is generated and sent to the user's registered email when resend is requested.
 
 ---
 
-Future Enhancements
+## Error Handling
+
+- Centralized exception handling using `@ControllerAdvice`.
+- Validation using `@Valid`.
+- Proper HTTP status codes for all responses.
+- Custom exceptions for different failure scenarios:
+  - `UserNotFoundException`
+  - `InvalidOtpException`
+  - `OtpExpiredException`
+  - `OtpAlreadyVerifiedException`
+  - `EmailIdNotFoundException`
+
+---
+
+## Future Enhancements
 
 - JWT-based authentication
-- Password encryption (BCrypt)
+- Password encryption using BCrypt
 - Refresh tokens
 - Audit logging
 - Pagination and filtering
@@ -211,32 +238,17 @@ Future Enhancements
 
 ---
 
-Getting Started
+## Getting Started
 
-Prerequisites
+### Prerequisites
 
 - Java 17+
 - Maven
-- MySQL (or preferred database)
+- MySQL or preferred relational database
 
-Run the Application
+### Run the Application
 
-mvn spring-boot:run
+```bash
+mvn spring-bootrun
 
-Application will start at:
-
-http://localhost:8080
-
----
-
-Notes
-
-- Designed as a mini project to demonstrate backend development skills
-- Focuses on security, clean architecture, and RESTful API design
-- Suitable for academic projects and resume showcasing
-
----
-
-License
-
-This project is for educational purposes.
+```
