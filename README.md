@@ -252,3 +252,16 @@ employee-management/
 mvn spring-bootrun
 
 ```
+## Application will start at:
+```bash
+http://localhost:8080
+```
+
+## Notes
+- Designed as a mini project to demonstrate backend development skills.
+- Focuses on security, clean architecture, and RESTful API design.
+- Suitable for academic projects and resume showcasing.
+  
+## License
+
+- This project is for educational purposes.
